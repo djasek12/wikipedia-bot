@@ -3,6 +3,6 @@
 
 import wikipedia as wiki
 
-
-print wiki.search("Barack")
+if __name__ == '__main__':
+	print wiki.search("Barack")
 
