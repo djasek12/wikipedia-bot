@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-import requests
-import 
+import wikipedia as wiki
 
-=======
->>>>>>> 0c2b5f2d3f70d75857d594c474b15174feee0f91
 
+print wiki.page("Bob Knight").links
