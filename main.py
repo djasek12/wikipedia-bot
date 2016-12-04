@@ -1,4 +1,3 @@
 import wikipedia as wiki
 
-
-wiki.search("Barack")
+print wiki.search("Barack")
