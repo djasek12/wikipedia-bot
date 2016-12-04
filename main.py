@@ -13,8 +13,5 @@ def traverse(src, dst):
 
 
 
-
-
-
 	
 		
