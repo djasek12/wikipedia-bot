@@ -1,6 +1,6 @@
 import requests
-#from BeautifulSoup import BeautifulSoup
-import BeautifulSoup
+import 
+
 
 url = "https://en.wikipedia.org/wiki/Bob_Knight"
 response = requests.get(url)
