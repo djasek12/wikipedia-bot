@@ -1,7 +1,11 @@
-<<<<<<< HEAD
-import requests
-import 
+#!/usr/bin/python
 
-=======
->>>>>>> 0c2b5f2d3f70d75857d594c474b15174feee0f91
+import wikipedia as wiki
+
+def getLinkTitles(title):
+    wikiPage = wiki.page(title)
+    return wikiPage.links
+
+def getContent(title):
+    return wiki.page(title).content
 
