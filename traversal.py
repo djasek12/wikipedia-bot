@@ -23,6 +23,8 @@ def traverse(src, dst, type="article"):
 	# next, look for common link on both src and dst
 	dstLinks = webutils.getLinkTitles(dst)
 	common = set(srcLinks) & set(dstLinks)
+	removeBlacklisted(common)
+
 	if len(common) != 0:
 		for i in range( 0, len(common)):
 			path = [src]
@@ -57,6 +59,9 @@ def traverse(src, dst, type="article"):
 		#for link in getLinks(outpost[3])	
 			#heappush(frontier, [Jaccard(dst, link), link])
 		'''
+
+def removeBlacklisted( setLinks):
+	setLinks.discard("Virtual International Authority File")
 
 def printPath( listPath):
 	path = ""
