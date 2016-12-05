@@ -15,34 +15,22 @@ def traverse(src, dst, type="article"):
 	# first, look for direct link between src and dst
 	srcLinks = webutils.getLinkTitles(src)
 	if dst in srcLinks:
-		print "Distance: 1 | Path: {} -> {}".format(src, dst)
+		print "Distance: 1 | {} -> {}".format(src, dst)
 		sys.exit(0)
 
 	# next, look for common link on both src and dst
 	dstLinks = webutils.getLinkTitles(dst)
 	common = set(srcLinks) & set(dstLinks)
-	if len(common) != 0: 
-		print "Distance: 2 | Path: {} -> {} -> {}".format(src, common.pop(), dst)
+	if len(common) != 0:
+		for i in range( 0, len(common)):
+			print "Distance: 2 | {} -> {} -> {}".format(src, common.pop(), dst)
 		sys.exit(0)
 
 	#finally, do real traversal
 	frontier = [] # heap containing the next locations to go to
 	marked = set() # contains all visited links
 	path = set()
-	pQueue = Queue.PriorityQueue()
 	
-	srcText = webutils.getSummary(src)
-	dstText = webutils.getSummary(dst)
-	
-	linkText = ""
-	for link in webutils.getLinkTitles(src):
-		linkText = webutils.getSummary(link)
-		ratio = similarity.getJaccard(linkText, dstText)
-		pQueue.put((1-ratio), link)
-		try:
-			print 'Working on {}: {}'.format(link, ratio)
-		except UnicodeError:
-			pass
 	
 	'''
 	while heappush: 
@@ -65,6 +53,4 @@ def traverse(src, dst, type="article"):
 			#heappush(frontier, [Jaccard(dst, link), link])
 		'''
 
-def printPath( listPages):
-	for page in listPages:
 
