@@ -7,5 +7,5 @@ def getContent(title):
     return wiki.page(title).content
 
 def getSummary(title):
-	return wiki.page(title).summary
+	return wiki.summary(title, 2)
 

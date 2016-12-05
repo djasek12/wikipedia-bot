@@ -1,22 +1,51 @@
 # module to enable traversal of graph
 
 # local modules
+import Queue
+import webutils
 import wikipedia as wiki
 import similarity
+import sys 
 
 # default modules
 from heapq import *
 
 
-def traverse(src, dst):
+def traverse(src, dst, type="article"):
+	# first, look for direct link between src and dst
+	srcLinks = webutils.getLinkTitles(src)
+	if dst in srcLinks:
+		print "Distance: 1 | Path: {} -> {}".format(src, dst)
+		sys.exit(0)
+
+	# next, look for common link on both src and dst
+	dstLinks = webutils.getLinkTitles(dst)
+	common = set(srcLinks) & set(dstLinks)
+	if len(common) != 0: 
+		print "Distance: 2 | Path: {} -> {} -> {}".format(src, common.pop(), dst)
+		sys.exit(0)
+
+	#finally, do real traversal
 	frontier = [] # heap containing the next locations to go to
 	marked = set() # contains all visited links
 	path = set()
-
-	heappush( frontier, [0, getJaccard(dst, link), src, src]) 
-	# [dist, jaccard, src, dst]
-
-	while heappush: # (is not empty)
+	pQueue = Queue.PriorityQueue()
+	
+	srcText = webutils.getSummary(src)
+	dstText = webutils.getSummary(dst)
+	
+	linkText = ""
+	for link in webutils.getLinkTitles(src):
+		linkText = webutils.getSummary(link)
+		ratio = similarity.getJaccard(linkText, dstText)
+		pQueue.put((1-ratio), link)
+		try:
+			print 'Working on {}: {}'.format(link, ratio)
+		except UnicodeError:
+			pass
+	
+	'''
+	while heappush: 
 
 		outpost = heappop()
 		
@@ -34,3 +63,8 @@ def traverse(src, dst):
 
 		#for link in getLinks(outpost[3])	
 			#heappush(frontier, [Jaccard(dst, link), link])
+		'''
+
+def printPath( listPages):
+	for page in listPages:
+

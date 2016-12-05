@@ -17,10 +17,10 @@ if __name__ == '__main__':
 		print "Exiting..."
 		sys.exit(1)
 	
-	pQueue = Queue.PriorityQueue()
+	#pQueue = Queue.PriorityQueue()
 
 	# testing
-	for title in webutils.getLinkTitles(src):
+	'''for title in webutils.getLinkTitles(src):
 		ratio = similarity.getJaccard(src, title)
 		try:
 			#print 'Similarity between {} and {}: {}'.format(src, title, ratio)
@@ -32,4 +32,7 @@ if __name__ == '__main__':
 		try:
 			print 'Up-Next: {}'.format(pQueue.get()[1])
 		except UnicodeError:
-			pass
+			pass'''
+	
+	traversal.traverse(src, target, "article")
+
