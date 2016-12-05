@@ -11,11 +11,13 @@ import sys
 from heapq import *
 
 
-def traverse(src, dst, type="article"):
+def traverse(src, dst, type="article"):	
 	# first, look for direct link between src and dst
 	srcLinks = webutils.getLinkTitles(src)
 	if dst in srcLinks:
-		print "Distance: 1 | {} -> {}".format(src, dst)
+		path = [src]
+		path.append(dst)
+		printPath(path)
 		sys.exit(0)
 
 	# next, look for common link on both src and dst
@@ -23,7 +25,10 @@ def traverse(src, dst, type="article"):
 	common = set(srcLinks) & set(dstLinks)
 	if len(common) != 0:
 		for i in range( 0, len(common)):
-			print "Distance: 2 | {} -> {} -> {}".format(src, common.pop(), dst)
+			path = [src]
+			path.append(common.pop())
+			path.append(dst)
+			printPath(path)
 		sys.exit(0)
 
 	#finally, do real traversal
@@ -53,4 +58,5 @@ def traverse(src, dst, type="article"):
 			#heappush(frontier, [Jaccard(dst, link), link])
 		'''
 
-
+def printPath( listPaths):
+	print "Distance: {} | {}".format(len(listPaths)-1, listPaths)
