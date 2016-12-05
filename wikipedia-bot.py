@@ -17,22 +17,9 @@ if __name__ == '__main__':
 		print "Exiting..."
 		sys.exit(1)
 	
-	#pQueue = Queue.PriorityQueue()
+	# ensure that src and dst are actual article names 
+	
 
-	# testing
-	'''for title in webutils.getLinkTitles(src):
-		ratio = similarity.getJaccard(src, title)
-		try:
-			#print 'Similarity between {} and {}: {}'.format(src, title, ratio)
-			pQueue.put((1-ratio, title))
-		except UnicodeError:
-			pass
-	
-	while not pQueue.empty():
-		try:
-			print 'Up-Next: {}'.format(pQueue.get()[1])
-		except UnicodeError:
-			pass'''
-	
+	# do the traversal
 	traversal.traverse(src, target, "article")
 

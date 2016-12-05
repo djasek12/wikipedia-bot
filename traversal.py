@@ -6,17 +6,22 @@ import webutils
 import wikipedia as wiki
 import similarity
 import sys 
+import time 
 
 # default modules
 from heapq import *
 
 
 def traverse(src, dst, type="article"):	
+	#start the clock
+	startTime = time.time()
+
 	# first, look for direct link between src and dst
 	srcLinks = webutils.getLinkTitles(src)
 	if dst in srcLinks:
 		path = [src]
 		path.append(dst)
+		printElapsed(startTime)
 		printPath(path)
 		sys.exit(0)
 
@@ -32,9 +37,9 @@ def traverse(src, dst, type="article"):
 			if dst in webutils.getLinkTitles(page):
 				path.append(page)
 				path.append(dst)
+				printElapsed(startTime)
 				printPath(path)
-		sys.exit(0)
-
+				sys.exit(0)
 	#finally, do real traversal
 	frontier = [] # heap containing the next locations to go to
 	marked = set() # contains all visited links
@@ -61,6 +66,9 @@ def traverse(src, dst, type="article"):
 		#for link in getLinks(outpost[3])	
 			#heappush(frontier, [Jaccard(dst, link), link])
 		'''
+
+def printElapsed( startTime):
+	print "Elapsed Time: {}".format(time.time() - startTime)
 
 def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
