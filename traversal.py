@@ -64,5 +64,8 @@ def printPath( listPath):
 		path += page
 		if page != listPath[-1]:
 			path += " -> "
+	try:
+		print "Distance: {} | {}".format( len(listPath)-1, path)
+	except UnicodeError:
+		pass
 
-	print "Distance: {} | {}".format( len(listPath)-1, path)
