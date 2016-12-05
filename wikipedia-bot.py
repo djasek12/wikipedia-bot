@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import Queue
 import similarity
 import sys
 import traversal
@@ -15,3 +16,20 @@ if __name__ == '__main__':
 		print "usage: main.py [src] [target]"
 		print "Exiting..."
 		sys.exit(1)
+	
+	pQueue = Queue.PriorityQueue()
+
+	# testing
+	for title in webutils.getLinkTitles(src):
+		ratio = similarity.getJaccard(src, title)
+		try:
+			#print 'Similarity between {} and {}: {}'.format(src, title, ratio)
+			pQueue.put((1-ratio, title))
+		except UnicodeError:
+			pass
+	
+	while not pQueue.empty():
+		try:
+			print 'Up-Next: {}'.format(pQueue.get()[1])
+		except UnicodeError:
+			pass

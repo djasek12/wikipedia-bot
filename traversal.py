@@ -13,7 +13,7 @@ def traverse(src, dst):
 	marked = set() # contains all visited links
 	path = set()
 
-	heappush( frontier, [0, Jaccard(dst, link), src, src]) 
+	heappush( frontier, [0, getJaccard(dst, link), src, src]) 
 	# [dist, jaccard, src, dst]
 
 	while heappush: # (is not empty)
