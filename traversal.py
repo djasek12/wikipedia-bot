@@ -10,20 +10,23 @@ import time
 
 # default modules
 from heapq import *
+from similarity import *
+from webutils import *
 
-
-def traverse(src, dst, type="article"):	
+def traverse(src, dst, path):	
+	print path
 	#start the clock
 	startTime = time.time()
 
 	# first, look for direct link between src and dst
 	srcLinks = webutils.getLinkTitles(src)
 
+
 	if dst.lower() in [x.lower() for x in srcLinks]:
-		path = [src]
-		path.append(dst)
+		takenpath = [src]
+		takenpath.append(dst)
 		printElapsed(startTime)
-		printPath(path)
+		printPath(takenpath)
 		sys.exit(0)
 
 	# next, look for common link on both src and dst
@@ -33,21 +36,32 @@ def traverse(src, dst, type="article"):
 	
 	if len(common) != 0:
 		for i in range( 0, len(common)):
-			path = [src]
+			takenpath = [src]
 			page = common.pop()
 			if dst.lower() in [x.lower() for x in webutils.getLinkTitles(page)]:
-				path.append(page)
-				path.append(dst)
+				takenpath.append(page)
+				takenpath.append(dst)
 				printElapsed(startTime)
-				printPath(path)
+				printPath(takenpath)
 				sys.exit(0)
+
+	max = 0
+	title = ""
+	for link in srcLinks:
+		#find its jaccard similarity with dst 
+		jaccard = getJaccard(getLinkTitles(link), getLinkTitles(dst))
+		if jaccard > max:
+			max = jaccard;
+			title = link
 	
+	traverse(title, dst, path+src)
+
+	'''	
 	#finally, do real traversal
 	frontier = [] # heap containing the next locations to go to
 	marked = set() # contains all visited links
 	path = set()
 	
-	print "out of Alex's"
 
 	heappush( frontier, [0, 0, src, src]) 
 	# [depth, Jaccard, src, dst]
@@ -81,11 +95,13 @@ def traverse(src, dst, type="article"):
 			try:
 				print 'Similarity between {} and {}: {}'.format(title, dst, jaccard)
 				heappush(frontier, [jaccard, 
-									outpost[0]+1,
-									outpost[3],
-									title])
+
+								outpost[0]+1,
+								outpost[3],
+								title])
 			except:
 				pass
+	'''
 
 
 def printElapsed( startTime):
@@ -94,8 +110,6 @@ def printElapsed( startTime):
 def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
 	setLinks.discard("International Standard Book Number")
-	temp = u"Bibliot\xe8que nationale de France"
-	setLinks.discard(temp)
 
 def printPath( listPath):
 	path = ""
