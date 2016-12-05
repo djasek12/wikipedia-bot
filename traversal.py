@@ -32,6 +32,5 @@ def traverse(src, dst):
 			marked.insert(output[3], dst)
 			return True;
 
-		for link in getLinks(outpost[3])
-			
-			heappush(frontier, [Jaccard(dst, link), link])
+		#for link in getLinks(outpost[3])	
+			#heappush(frontier, [Jaccard(dst, link), link])
