@@ -46,29 +46,27 @@ def traverse(src, dst, type="article"):
 	marked = set() # contains all visited links
 	path = set()
 	
+	heappush( frontier, [0, 0, src, src]) 
+	# [depth, Jaccard, src, dst]
 	
-
-	'''
-	while heappush: 
-
-		outpost = heappop()
+	while frontier: 
+		outpost = heappop( frontier)
 		
+		# prevent loops
 		if outpost[2] in marked:
 			continue
 
-		marked.insert(outpost[2])
-		path.insert(output[3], outpost[2])
+		marked.add(outpost[2])
+		path.add((outpost[3], outpost[2]))
 
-		lisks = getList(output[3])
+		links = webutils.getLinkTitles(outpost[3])
 
 		if dst in links:
-			marked.insert(output[3], dst)
-			return True;
+			printElapsed(startTime)
+			sys.exit(0)
 
-		#for link in getLinks(outpost[3])	
-			#heappush(frontier, [Jaccard(dst, link), link])
-		'''
-
+		for link in links:	
+			heappush(frontier, [outpost[0]+1, similarity.getJaccard(dst, link), outpost[2], link])
 
 
 
