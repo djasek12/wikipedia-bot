@@ -17,11 +17,10 @@ if __name__ == '__main__':
 		print "Exiting..."
 		sys.exit(1)
 	
-	# ensure that src and dst are actual article names 
-	
+	# do traversal	
 	try:
 		traversal.traverse(src, target, "article")
-	except wiki.exceptions.PageError:
+	except: 
 		print "Page Not Found!"
 		print "Exiting"
 		sys.exit(1)
