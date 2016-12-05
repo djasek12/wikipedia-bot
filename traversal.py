@@ -47,6 +47,7 @@ def traverse(src, dst, type="article"):
 	path = set()
 	
 	
+
 	'''
 	while heappush: 
 
@@ -67,6 +68,9 @@ def traverse(src, dst, type="article"):
 		#for link in getLinks(outpost[3])	
 			#heappush(frontier, [Jaccard(dst, link), link])
 		'''
+
+
+
 
 def printElapsed( startTime):
 	print "Elapsed Time: {}".format(time.time() - startTime)
