@@ -18,7 +18,7 @@ def traverse(src, dst, type="article"):
 
 	# first, look for direct link between src and dst
 	srcLinks = webutils.getLinkTitles(src)
-	print srcLinks
+
 	if dst.lower() in [x.lower() for x in srcLinks]:
 		path = [src]
 		path.append(dst)
@@ -78,11 +78,14 @@ def traverse(src, dst, type="article"):
 			except wiki.wikipedia.PageError:
 				pass
 
-			print 'Similarity between {} and {}: {}'.format(title, dst, jaccard)
-			heappush(frontier, [jaccard, 
-								outpost[0]+1,
-								outpost[3],
-								title])
+			try:
+				print 'Similarity between {} and {}: {}'.format(title, dst, jaccard)
+				heappush(frontier, [jaccard, 
+									outpost[0]+1,
+									outpost[3],
+									title])
+			except:
+				pass
 
 
 def printElapsed( startTime):
