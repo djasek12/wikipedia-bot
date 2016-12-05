@@ -58,5 +58,11 @@ def traverse(src, dst, type="article"):
 			#heappush(frontier, [Jaccard(dst, link), link])
 		'''
 
-def printPath( listPaths):
-	print "Distance: {} | {}".format(len(listPaths)-1, listPaths)
+def printPath( listPath):
+	path = ""
+	for page in listPath:
+		path += page
+		if page != listPath[-1]:
+			path += " -> "
+
+	print "Distance: {} | {}".format( len(listPath)-1, path)
