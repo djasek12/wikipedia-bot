@@ -40,6 +40,7 @@ def traverse(src, dst, type="article"):
 				printElapsed(startTime)
 				printPath(path)
 				sys.exit(0)
+	
 	#finally, do real traversal
 	frontier = [] # heap containing the next locations to go to
 	marked = set() # contains all visited links
