@@ -20,7 +20,7 @@ if __name__ == '__main__':
 	# do traversal	
 	try:
 		traversal.traverse(src, target, "article")
-	except: 
+	except wiki.wikipedia.PageError: 
 		print "Page Not Found!"
 		print "Exiting"
 		sys.exit(1)
