@@ -18,7 +18,7 @@ def traverse(src, dst, type="article"):
 
 	# first, look for direct link between src and dst
 	srcLinks = webutils.getLinkTitles(src)
-	if dst in srcLinks:
+	if dst.lower() in [x.lower() for x in srcLinks]:
 		path = [src]
 		path.append(dst)
 		printElapsed(startTime)
@@ -34,7 +34,7 @@ def traverse(src, dst, type="article"):
 		for i in range( 0, len(common)):
 			path = [src]
 			page = common.pop()
-			if dst in webutils.getLinkTitles(page):
+			if dst.lower() in [x.lower() for x in webutils.getLinkTitles(page)]:
 				path.append(page)
 				path.append(dst)
 				printElapsed(startTime)
