@@ -20,5 +20,5 @@ if __name__ == '__main__':
 
 	wiki.set_lang("en")
 
-	traversal.traverse(src, target, "article")
+	traversal.traverse(src, target, "")
 
