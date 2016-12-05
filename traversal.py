@@ -24,6 +24,10 @@ def traverse(src, dst, type="article"):
 	dstLinks = webutils.getLinkTitles(dst)
 	common = set(srcLinks) & set(dstLinks)
 	removeBlacklisted(common)
+	
+	for page in common: 
+		if dst not in webutils.getLinkTitles(page):
+			print "Removing {}".format(page)
 
 	if len(common) != 0:
 		for i in range( 0, len(common)):
@@ -62,6 +66,7 @@ def traverse(src, dst, type="article"):
 
 def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
+	setLinks.discard("International Standard Book Number")
 
 def printPath( listPath):
 	path = ""
