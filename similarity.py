@@ -1,9 +1,13 @@
 #!/usr/bin/python
 
-def getJaccard( wordList1, wordList2):
+def getJaccard( paragraph1, paragraph2):
 	# get the union of the two lists
-	intersection = list( set(wordList1) & set(wordList2))
-	union = list( set(wordList1) | set(wordList2))
+
+	wordList1 = set( paragraph1)
+	wordList2 = set( paragraph2)
+
+	intersection = list( wordList1 & wordList2)
+	union = list( wordList1 | wordList2)
 	
 
 	return float( len(intersection)) / len(union)
