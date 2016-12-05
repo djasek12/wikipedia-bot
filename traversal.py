@@ -25,16 +25,14 @@ def traverse(src, dst, type="article"):
 	common = set(srcLinks) & set(dstLinks)
 	removeBlacklisted(common)
 	
-	for page in common: 
-		if dst not in webutils.getLinkTitles(page):
-			print "Removing {}".format(page)
-
 	if len(common) != 0:
 		for i in range( 0, len(common)):
 			path = [src]
-			path.append(common.pop())
-			path.append(dst)
-			printPath(path)
+			page = common.pop()
+			if dst in webutils.getLinkTitles(page):
+				path.append(page)
+				path.append(dst)
+				printPath(path)
 		sys.exit(0)
 
 	#finally, do real traversal
