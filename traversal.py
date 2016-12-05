@@ -26,7 +26,7 @@ def traverse(src, dst, path):
 		takenpath = [src]
 		takenpath.append(dst)
 		printElapsed(startTime)
-		printPath(takenpath)
+		printPath(path.split() + takenpath)
 		sys.exit(0)
 
 	# next, look for common link on both src and dst
@@ -42,7 +42,7 @@ def traverse(src, dst, path):
 				takenpath.append(page)
 				takenpath.append(dst)
 				printElapsed(startTime)
-				printPath(takenpath)
+				printPath(path.split() + takenpath)
 				sys.exit(0)
 
 	max = 0
@@ -54,7 +54,7 @@ def traverse(src, dst, path):
 			max = jaccard;
 			title = link
 	
-	traverse(title, dst, path+src)
+	traverse(title, dst, path+" "+src)
 
 	'''	
 	#finally, do real traversal
