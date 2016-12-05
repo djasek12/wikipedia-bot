@@ -18,6 +18,7 @@ def traverse(src, dst, type="article"):
 
 	# first, look for direct link between src and dst
 	srcLinks = webutils.getLinkTitles(src)
+	print srcLinks
 	if dst.lower() in [x.lower() for x in srcLinks]:
 		path = [src]
 		path.append(dst)
@@ -46,14 +47,19 @@ def traverse(src, dst, type="article"):
 	marked = set() # contains all visited links
 	path = set()
 	
+	print "out of Alex's"
+
 	heappush( frontier, [0, 0, src, src]) 
 	# [depth, Jaccard, src, dst]
 	
 	while frontier: 
+		#print len(frontier)
 		outpost = heappop( frontier)
-		
+		print "CHOSE :", outpost[3], "<======================================="
+
+
 		# prevent loops
-		if outpost[2] in marked:
+		if outpost[3] in marked:
 			continue
 
 		marked.add(outpost[2])
@@ -61,13 +67,22 @@ def traverse(src, dst, type="article"):
 
 		links = webutils.getLinkTitles(outpost[3])
 
+		#
 		if dst in links:
 			printElapsed(startTime)
 			sys.exit(0)
 
-		for link in links:	
-			heappush(frontier, [outpost[0]+1, similarity.getJaccard(dst, link), outpost[2], link])
+		for title in links:	
+			try:
+				jaccard = 1 - similarity.getJaccard(webutils.getLinkTitles(title), webutils.getLinkTitles(dst))
+			except wiki.wikipedia.PageError:
+				pass
 
+			print 'Similarity between {} and {}: {}'.format(title, dst, jaccard)
+			heappush(frontier, [jaccard, 
+								outpost[0]+1,
+								outpost[3],
+								title])
 
 
 def printElapsed( startTime):
@@ -76,6 +91,8 @@ def printElapsed( startTime):
 def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
 	setLinks.discard("International Standard Book Number")
+	temp = u"Bibliot\xe8que nationale de France"
+	setLinks.discard(temp)
 
 def printPath( listPath):
 	path = ""
@@ -83,8 +100,22 @@ def printPath( listPath):
 		path += page
 		if page != listPath[-1]:
 			path += " -> "
+	
 	try:
 		print "Distance: {} | {}".format( len(listPath)-1, path)
 	except UnicodeError:
-		pass
+		print "Distance: {} | {}".format( len(listPath)-1, path.encode('ascii', errors='backslashreplace'))
 
+
+def constructPath(graph, dst, src):
+	path = []
+	curr = dst
+	while curr != src:
+		for edge in graph:
+			if dst == edge[0]:
+				curr = edge[1]
+				path += curr
+				break
+
+	printPath(path.reverse())
+			

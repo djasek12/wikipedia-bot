@@ -1,10 +1,11 @@
 import wikipedia as wiki
 
 def getLinkTitles(title):
-    return wiki.page(title).links
+	wiki.set_lang("en")
+	return wiki.page(title).links
 
 def getContent(title):
-    return wiki.page(title).content
+	return wiki.page(title).content
 
 def getSummary(title):
 	return wiki.summary(title, 2)
