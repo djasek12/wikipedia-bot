@@ -1,7 +1,6 @@
 import wikipedia as wiki
 
 def getLinkTitles(title):
-	wiki.set_lang("en")
 	return wiki.page(title).links
 
 def getContent(title):

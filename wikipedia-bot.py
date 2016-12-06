@@ -4,6 +4,7 @@ import Queue
 import similarity
 import sys
 import traversal
+import discoverPath
 import webutils
 import wikipedia as wiki
 
@@ -20,5 +21,7 @@ if __name__ == '__main__':
 
 	wiki.set_lang("en")
 
-	traversal.traverse(src, target, "")
+	# traversal.traverse(src, target)
+	discoverPath.traverse(src, target)
+
 

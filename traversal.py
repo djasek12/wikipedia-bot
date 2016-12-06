@@ -15,6 +15,7 @@ from webutils import *
 
 def traverse(src, dst, path):	
 	print path
+
 	#start the clock
 	startTime = time.time()
 
@@ -49,7 +50,8 @@ def traverse(src, dst, path):
 	title = ""
 	for link in srcLinks:
 		#find its jaccard similarity with dst 
-		jaccard = getJaccard(getLinkTitles(link), getLinkTitles(dst))
+		jaccard = getJaccard(getLinkTitles(link), dstLinks)
+
 		if jaccard > max:
 			max = jaccard;
 			title = link
@@ -110,6 +112,7 @@ def printElapsed( startTime):
 def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
 	setLinks.discard("International Standard Book Number")
+	setLinks.discard("Integrated Authority File")
 
 def printPath( listPath):
 	path = ""
