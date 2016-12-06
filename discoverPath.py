@@ -93,7 +93,7 @@ def traverse(src, dst):
 
 					############
 			
-					if jaccard > future[0][0]:
+					if jaccard > future[0][0] or len(future) < MAX_FUTURE:
 						if len(future) >= MAX_FUTURE:
 							future.remove(min(future))
 						future += [(jaccard, page)]
@@ -119,7 +119,7 @@ def traverse(src, dst):
 					continue
 
 				##########
-				if jaccard > future[0][0]:
+				if jaccard > future[0][0] or len(future) < MAX_FUTURE:
 					if len(future) >= MAX_FUTURE:
 						future.remove(min(future))
 					future += [(jaccard, page)]
