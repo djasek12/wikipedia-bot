@@ -1,6 +1,5 @@
 # module to enable traversal of graph
 
-
 import Queue
 import webutils
 import wikipedia as wiki
@@ -8,6 +7,7 @@ import similarity
 import sys 
 import time
 import random
+import bisect
 
 from traversal import *
 from heapq import *
@@ -18,10 +18,20 @@ def traverse(src, dst):
 	#start the clock
 	startTime = time.time()
 
+	MAX_COMMON = 20
+	MAX_RANDOM = 5
+	MAX_FUTURE = 3
+
 	# correct dst in case title is different
 	dst = webutils.getTitle(dst)
 
 	dstLinks = webutils.getLinkTitles(dst)
+
+	# new, experimental method to find best option with ordered list
+	future = []
+	future += [(0, src)]
+
+	##############################
 
 	visited = set()
 
@@ -49,8 +59,8 @@ def traverse(src, dst):
 
 		all_common = set(currLinks) & set(dstLinks)
 
-		# limit the number of links in common set to 20
-		common = random.sample(all_common, min(len(all_common), 20))
+		# limit the number of links in common set to MAX_COMMON
+		common = random.sample(all_common, min(len(all_common), MAX_COMMON))
 	
 		maxJaccard = 0
 		title = ""
@@ -81,6 +91,16 @@ def traverse(src, dst):
 					except:
 						continue
 
+					############
+			
+					if jaccard > future[0][0]:
+						if len(future) >= MAX_FUTURE:
+							future.remove(min(future))
+						future += [(jaccard, page)]
+					
+					############
+
+					# old method:
 					if jaccard > maxJaccard:
 						maxJaccard = jaccard;
 						nextPage = page
@@ -90,21 +110,41 @@ def traverse(src, dst):
 		else:
 			print "\tNo common pages."
 			print "Random Linked Pages:"
-			# there are no commonly referenced pages, so select 5 random
-			for page in random.sample(currlinks, min(len(currlinks), 5)):
+			# there are no commonly referenced pages, so select MAX_RANDOM random
+			for page in random.sample(currLinks, min(len(currLinks), MAX_RANDOM)):
 				try:
 					jaccard = getJaccard(getLinkTitles(page), dstLinks)
 					print '\tSimilarity: "{}" and "{}" == {}'.format(page, dst, jaccard)
 				except:
 					continue
 
+				##########
+				if jaccard > future[0][0]:
+					if len(future) >= MAX_FUTURE:
+						future.remove(min(future))
+					future += [(jaccard, page)]
+
+				##########
+
+				# old method:
 				if jaccard > maxJaccard:
 					maxJaccard = jaccard
 					nextPage = page
 
 
 		# 5) Loop through again, with newly selected page chosen by Jaccard in (3b) or (4)
+		# old method:
+		'''
 		path.append(nextPage)
 		visited.add(curr)
 		curr = nextPage
+		'''
 
+
+		# new method:
+		################
+		visited.add(curr)
+
+		curr = max(future)[1]
+		future.remove(max(future))
+		path.append(curr)
