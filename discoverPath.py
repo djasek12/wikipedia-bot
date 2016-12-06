@@ -99,6 +99,8 @@ def traverse(src, dst):
 					maxJaccard = jaccard
 					nextPage = page
 
+
 		# 5) Loop through again, with newly selected page chosen by Jaccard in (3b) or (4)
 		path.append(nextPage)
 		curr = nextPage
+
