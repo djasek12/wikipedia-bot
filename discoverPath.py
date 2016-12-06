@@ -150,6 +150,7 @@ def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
 	setLinks.discard("International Standard Book Number")
 	setLinks.discard("Integrated Authority File")
+	setLinks.discard("Library of Congress Control Number")
 
 def printPath( listPath):
 	path = ""
@@ -175,4 +176,3 @@ def constructPath(graph, dst, src):
 				break
 
 	printPath(path.reverse())
-			
