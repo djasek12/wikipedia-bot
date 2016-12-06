@@ -23,7 +23,7 @@ def traverse(src, dst):
 
 	dstLinks = webutils.getLinkTitles(dst)
 
-	visted = set()
+	visited = set()
 
 	path = [src]
 	curr = src
@@ -32,8 +32,9 @@ def traverse(src, dst):
 		print "Searching", curr.upper(), "..."
 
 		# 1) look for direct link between src and dst
-		currLinks = webutils.getLinkTitles(curr.lower())
-
+		currLinks = set(webutils.getLinkTitles(curr.lower())) - visited
+		removeBlacklisted(currLinks)
+	
 		print "immediate find..."
 		if dst.lower() in [x.lower() for x in currLinks]:
 			path.append(dst)
@@ -46,8 +47,7 @@ def traverse(src, dst):
 		# (intersection between links of curr and dst)
 		print "common links..."
 
-		common = set(currLinks) & set(dstLinks) 
-		removeBlacklisted(common)
+		common = set(currLinks) & set(dstLinks)
 		
 		maxJaccard = 0
 		title = ""
@@ -102,5 +102,6 @@ def traverse(src, dst):
 
 		# 5) Loop through again, with newly selected page chosen by Jaccard in (3b) or (4)
 		path.append(nextPage)
+		visited.add(curr)
 		curr = nextPage
 

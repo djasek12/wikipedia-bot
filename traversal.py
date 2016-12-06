@@ -114,6 +114,7 @@ def removeBlacklisted( setLinks):
 	setLinks.discard("International Standard Book Number")
 	setLinks.discard("Integrated Authority File")
 	setLinks.discard("Digital object identifier")
+	setLinks.discard("Library of Congress Control Number")
 
 def printPath( listPath):
 	path = ""
