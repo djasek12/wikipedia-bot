@@ -113,6 +113,7 @@ def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
 	setLinks.discard("International Standard Book Number")
 	setLinks.discard("Integrated Authority File")
+	setLinks.discard("Digital object identifier")
 
 def printPath( listPath):
 	path = ""

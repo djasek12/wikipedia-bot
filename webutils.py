@@ -9,3 +9,6 @@ def getContent(title):
 def getSummary(title):
 	return wiki.summary(title, 2)
 
+def getTitle(title):
+	return wiki.page(title).title
+
