@@ -47,8 +47,11 @@ def traverse(src, dst):
 		# (intersection between links of curr and dst)
 		print "common links..."
 
-		common = set(currLinks) & set(dstLinks)
-		
+		all_common = set(currLinks) & set(dstLinks)
+
+		# limit the number of links in common set to 20
+		common = random.sample(all_common, min(len(all_common), 20))
+	
 		maxJaccard = 0
 		title = ""
 
@@ -60,9 +63,6 @@ def traverse(src, dst):
 					links = webutils.getLinkTitles(page)
 				except:
 					continue
-
-				# limit the number of links
-				links = random.sample(links, min(len(links), 20)
 
 				# 3b) if common page points to dst, SUCCESS, end program
 				if dst.lower() in [title.lower() for title in links]:
@@ -91,7 +91,7 @@ def traverse(src, dst):
 			print "\tNo common pages."
 			print "Random Linked Pages:"
 			# there are no commonly referenced pages, so select 5 random
-			for page in random.sample(currLinks, min(len(currLinks), 5)):
+			for page in random.sample(currlinks, min(len(currlinks), 5)):
 				try:
 					jaccard = getJaccard(getLinkTitles(page), dstLinks)
 					print '\tSimilarity: "{}" and "{}" == {}'.format(page, dst, jaccard)
