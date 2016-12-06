@@ -29,7 +29,7 @@ def traverse(src, dst):
 		print "Searching", curr.upper(), "..."
 
 		# first, look for direct link between src and dst
-		srcLinks = webutils.getLinkTitles(curr)
+		srcLinks = webutils.getLinkTitles(curr.lower())
 		print "immediate find..."
 		if dst.lower() in [x.lower() for x in srcLinks]:
 			path.append(dst)
