@@ -61,6 +61,9 @@ def traverse(src, dst):
 				except:
 					continue
 
+				# limit the number of links
+				links = random.sample(links, min(len(links), 20)
+
 				# 3b) if common page points to dst, SUCCESS, end program
 				if dst.lower() in [title.lower() for title in links]:
 					print '\t            "{}"'.format(page)
