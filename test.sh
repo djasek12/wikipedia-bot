@@ -1,4 +1,4 @@
-TIMEOUT=1
+TIMEOUT=10
 
 echo "Testing Correctness"
 command=`python wikipedia-bot.py "Evansville, Indiana" "Bosse Field" | tail -n 1`
