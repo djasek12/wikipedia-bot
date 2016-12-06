@@ -30,6 +30,7 @@ def traverse(src, dst):
 
 		# first, look for direct link between src and dst
 		srcLinks = webutils.getLinkTitles(curr.lower())
+
 		print "immediate find..."
 		if dst.lower() in [x.lower() for x in srcLinks]:
 			path.append(dst)
@@ -67,11 +68,15 @@ def traverse(src, dst):
 		# choose whether to use common intersection information or 
 		# random selection from the srcLinks
 
-		if (intersection != 0):
+
+
+		if (len(intersection) > 0):
 			linksToSearch = intersection
+			print "bad"
 		else:
 			linksToSearch = random.sample(srcLinks, min(len(srcLinks), 5))
 			# search a maxmimum of 5 randomly chosen nodes
+			print "good"
 
 		for link in linksToSearch:
 			#find its jaccard similarity with dst 
@@ -85,6 +90,8 @@ def traverse(src, dst):
 				max = jaccard;
 				title = link
 		
+
+
 		path.append(title)
 		curr = title # set the next item to begin search from
 
