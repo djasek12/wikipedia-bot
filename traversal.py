@@ -15,11 +15,14 @@ from webutils import *
 
 def traverse(src, dst, path):	
 	print path
+
 	#start the clock
 	startTime = time.time()
 
 	# first, look for direct link between src and dst
 	srcLinks = webutils.getLinkTitles(src)
+
+
 	if dst.lower() in [x.lower() for x in srcLinks]:
 		takenpath = [src]
 		takenpath.append(dst)
@@ -47,7 +50,8 @@ def traverse(src, dst, path):
 	title = ""
 	for link in srcLinks:
 		#find its jaccard similarity with dst 
-		jaccard = getJaccard(getLinkTitles(link), getLinkTitles(dst))
+		jaccard = getJaccard(getLinkTitles(link), dstLinks)
+
 		if jaccard > max:
 			max = jaccard;
 			title = link
@@ -93,6 +97,7 @@ def traverse(src, dst, path):
 			try:
 				print 'Similarity between {} and {}: {}'.format(title, dst, jaccard)
 				heappush(frontier, [jaccard, 
+
 								outpost[0]+1,
 								outpost[3],
 								title])
@@ -100,12 +105,14 @@ def traverse(src, dst, path):
 				pass
 	'''
 
+
 def printElapsed( startTime):
 	print "Elapsed Time: {}".format(time.time() - startTime)
 
 def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
 	setLinks.discard("International Standard Book Number")
+	setLinks.discard("Integrated Authority File")
 
 def printPath( listPath):
 	path = ""
