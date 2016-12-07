@@ -13,8 +13,12 @@ print "-------------------------------------------------------------------------
 
 for pair in src_dst_list:
     command = 'python wikipedia-bot.py "' + pair[0] + '" "' + pair[1] + '"'
-    start = time.time()
-    output = subprocess.check_output(command, shell=True)
-    distance = output.split("Distance:")[1].split()[0]
-    end = time.time()
-    print "| " + pair[0] + ' '*(30-len(pair[0])) +" | " + pair[1] + ' '*(30-len(pair[1])) + " | " + distance + "                 | " + str((end-start)) + ' s'
+    string = "| " + pair[0] + " "*(30-len(pair[0])) + " | " + pair[1] + " "*(30-len(pair[1])) + " | "
+    print string
+    for i in xrange(2):
+        start = time.time()
+        #print command
+        output = subprocess.check_output(command, shell=True)
+        distance = output.split("Distance:")[1].split()[0]
+        end = time.time()
+        print distance + "                 | " + str((end-start)) + ' s',

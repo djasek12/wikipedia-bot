@@ -35,7 +35,8 @@ def traverse(src, dst):
 
 	visited = set()
 
-	path = [src]
+	#path = [src]
+        path = []
 	curr = src
 
 	while curr != dst:
@@ -46,10 +47,10 @@ def traverse(src, dst):
 		removeBlacklisted(currLinks)
 	
 		print "immediate find..."
-		if dst.lower() in [x.lower() for x in currLinks]:
-			path.append(dst)
+		if dst.lower() in [source.lower() for source in currLinks]:
+			path.append((dst, curr))
 			printElapsed(startTime)
-			printPath(path)
+			printPath2(path, dst, src)
 			sys.exit(0)
 
 
@@ -75,12 +76,12 @@ def traverse(src, dst):
 					continue
 
 				# 3b) if common page points to dst, SUCCESS, end program
-				if dst.lower() in [title.lower() for title in links]:
+				if dst.lower() in [source.lower() for source in links]:
 					print '\t            "{}"'.format(page)
-					path.append(page)
-					path.append(dst)
+					path.append((page, curr))
+					path.append((dst, page))
 					printElapsed(startTime)
-					printPath(path)
+					printPath2(path, dst, src)
 					sys.exit(0)
 				# 3c) else, compute Jaccard between all common pages and dst and 
 				# choose the lowest Jaccard
@@ -106,7 +107,7 @@ def traverse(src, dst):
 						nextPage = page
 
 		# 4) If there are no common pages between curr and dst, chose 5 random 
-		# pages linked from curr, and choose one with smallest Jaccard score
+		# pages linked from curr, and choose one with largest Jaccard score
 		else:
 			print "\tNo common pages."
 			print "Random Linked Pages:"
@@ -145,6 +146,7 @@ def traverse(src, dst):
 		################
 		visited.add(curr)
 
+                oldCurr = curr
 		curr = max(future)[1]
 		future.remove(max(future))
-		path.append(curr)
+		path.append((curr, oldCurr))

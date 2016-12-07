@@ -117,16 +117,16 @@ def removeBlacklisted( setLinks):
 	setLinks.discard("Library of Congress Control Number")
 
 def printPath( listPath):
-	path = ""
-	for page in listPath:
-		path += page
-		if page != listPath[-1]:
+	path = str(listPath[0][1]) + " -> " #print source (tuple item)
+	for dest, source in listPath:
+		path += dest
+		if dest != listPath[-1][0]: #destination
 			path += " -> "
 	
 	try:
-		print "Distance: {} | {}".format( len(listPath)-1, path)
+		print "Distance: {} | {}".format( len(listPath), path)
 	except UnicodeError:
-		print "Distance: {} | {}".format( len(listPath)-1, path.encode('ascii', errors='backslashreplace'))
+		print "Distance: {} | {}".format( len(listPath), path.encode('ascii', errors='backslashreplace'))
 
 
 def constructPath(graph, dst, src):
@@ -140,4 +140,22 @@ def constructPath(graph, dst, src):
 				break
 
 	printPath(path.reverse())
+
+#takes in a list of (dst, src) tuples and reorders them to go from the source to the destination and calls printPath
+def printPath2(pathList, dst, src):
+        path = []
+        dstToFind = dst
+
+        while not len(pathList) == 0:
+            for destination, source in pathList:
+                if destination == dstToFind:
+                    path.append((destination, source))
+                    pathList.remove((destination, source))
+                    dstToFind = source
+
+        path.reverse()
+        printPath(path)
+
+
+
 			
