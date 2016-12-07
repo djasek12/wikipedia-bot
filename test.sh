@@ -2,11 +2,17 @@ timeout1=15
 timeout2=30
 timeout3=45
 
+
 #test correctness
 echo "Testing Correctness"
 command=`python wikipedia-bot.py "Evansville, Indiana" "Bosse Field" | tail -n 1`
 output="Distance: 1 | Evansville, Indiana -> Bosse Field"
 diff <(echo "$command") <(echo "$output")
+
+command=`python wikipedia-bot.py "University of Notre Dame" "Knute Rockne" | tail -n 1`
+output="Distance: 1 | University of Notre Dame -> Knute Rockne"
+diff <(echo "$command") <(echo "$output")
+
 
 #test performance
 echo "Testing Articles 1 Link Apart with Timeout of $timeout1 seconds"

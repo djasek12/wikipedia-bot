@@ -145,13 +145,16 @@ def constructPath(graph, dst, src):
 def printPath2(pathList, dst, src):
         path = []
         dstToFind = dst
+        currSource = dst # dummy assignment to flag variable to let us know when the path has been constructed completely
 
-        while not len(pathList) == 0:
+        while not currSource == src: #traversal complete
             for destination, source in pathList:
+                currSource = source
                 if destination == dstToFind:
                     path.append((destination, source))
                     pathList.remove((destination, source))
                     dstToFind = source
+                    break
 
         path.reverse()
         printPath(path)
