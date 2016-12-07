@@ -2,6 +2,7 @@ External Sources Used
 ----------------------
 
 http://stackoverflow.com/questions/24413563/how-do-i-know-if-a-process-has-timedout-in-bash
+http://stackoverflow.com/questions/687948/timeout-a-command-in-bash-without-unnecessary-delay
 
 Benchmarking Results
 --------------------

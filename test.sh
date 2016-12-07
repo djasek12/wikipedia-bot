@@ -13,7 +13,7 @@ if [[ `diff <(echo "$command") <(echo "$output")` ]] ; then
 fi
 
 command=`python wikipedia-bot.py "University of Notre Dame" "Knute Rockne" | tail -n 1`
-output="Distance: 1 | University of Notre Dame-> Knute Rockne"
+output="Distance: 1 | University of Notre Dame -> Knute Rockne"
 diff <(echo "$command") <(echo "$output")
 if [[ `diff <(echo "$command") <(echo "$output")` ]] ; then
     echo "Test Failed"
