@@ -107,7 +107,7 @@ def traverse(src, dst, path):
 
 
 def printElapsed( startTime):
-	print "Elapsed Time: {}".format(time.time() - startTime)
+	print "Elapsed Time: {:.2f} seconds".format(time.time() - startTime)
 
 def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
