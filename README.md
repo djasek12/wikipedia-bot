@@ -3,8 +3,18 @@ How to Run the Project
 ----------------------
 
 Clone the repository: 
+    
     `$ git clone https://gitlab.com/djasek/wikipedia-bot.git`
 
+Install requirements (requiries Pip):
+
+    `$ pip install --user -r requirements.txt`
+
+Example Usage: 
+    
+    `$ python ./wikipedia-bot.py "Bob Ross" "Red"`
+
+Note to User: Quotation marks are needed if the [src] or [dst] is multi-word 
 
 External Sources Used
 ----------------------
