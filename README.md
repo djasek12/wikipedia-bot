@@ -47,5 +47,5 @@ Benchmarking Results
 | Socks                          | Wierd Al                       | 6, 31.7290      | 5, 18.4056      | 7, 50.9891      | 6, 33.7079 |
 | Mirror Image                   | Dell                           | 4, 12.8211      | 3, 14.3931      | 4, 15.9633      | 3, 14.3925 |
 | Telephone                      | Grasshopper                    | 9, 67.1147      | 8, 50.4769      | 8, 51.1647      | 8, 56.2521 |
-| Jesus                          | Johnnie Cochran                | 6, 34.2885      | 21, 124.447      | 33, 190.617      | 20, 116.451 |
+| Jesus                          | Johnnie Cochran                | 6, 34.2885      | 21, 124.447     | 33, 190.617     | 20, 116.451|
 

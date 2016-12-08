@@ -15,4 +15,6 @@ Danny Jasek
 Eric Krebs
 ----------
 - traversal algorithm
-
+- future node data structure
+- loop prevention and iterative design
+- link limiting and efficiency parameter setting

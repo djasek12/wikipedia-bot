@@ -1,3 +1,6 @@
+# utility funcitons to interface with the wikipedia module and 
+# return the desired data
+
 import wikipedia as wiki
 
 def getLinkTitles(title):

@@ -1,21 +1,16 @@
-# module to enable traversal of graph
+# modules with functions essential to graph traversal
 
 # local modules
-import Queue
 import webutils
 import wikipedia as wiki
-import similarity
-import sys 
-import time 
-
-# default modules
-from heapq import *
-from similarity import *
 from webutils import *
 
+# other modules
+import time
 
 def printElapsed( startTime):
 	print "Elapsed Time: {:.2f} seconds".format(time.time() - startTime)
+
 
 def removeBlacklisted( setLinks):
 	setLinks.discard("Virtual International Authority File")
@@ -24,49 +19,34 @@ def removeBlacklisted( setLinks):
 	setLinks.discard("Digital object identifier")
 	setLinks.discard("Library of Congress Control Number")
 
-def printPath( listPath):
-	path = str(listPath[0][1]) + " -> " #print source (tuple item)
-	for dest, source in listPath:
-		path += dest
-		if dest != listPath[-1][0]: #destination
-			path += " -> "
-	
-	try:
-		print "Distance: {} | {}".format( len(listPath), path)
-	except UnicodeError:
-		print "Distance: {} | {}".format( len(listPath), path.encode('ascii', errors='backslashreplace'))
-
-
-def constructPath(graph, dst, src):
-	path = []
-	curr = dst
-	while curr != src:
-		for edge in graph:
-			if dst == edge[0]:
-				curr = edge[1]
-				path += curr
-				break
-
-	printPath(path.reverse())
 
 #takes in a list of (dst, src) tuples and reorders them to go from the source to the destination and calls printPath
-def printPath2(pathList, dst, src):
-        path = []
-        dstToFind = dst
-        currSource = dst # dummy assignment to flag variable to let us know when the path has been constructed completely
+def printPath(pathList, dst, src):
+	path = []
+	dstToFind = dst
+	currSource = dst # dummy assignment to flag variable to let us know when the path has been constructed completely
 
-        while not currSource == src: #traversal complete
-            for destination, source in pathList:
-                currSource = source
-                if destination == dstToFind:
-                    path.append((destination, source))
-                    pathList.remove((destination, source))
-                    dstToFind = source
-                    break
+	# traverse list backwards, storing values
+	while not currSource == src: #traversal complete
+		for destination, source in pathList:
+			currSource = source
+			if destination == dstToFind:
+				path.append((destination, source))
+				pathList.remove((destination, source))
+				dstToFind = source
+				break
 
-        path.reverse()
-        printPath(path)
+	path.reverse()
 
-
+	# store new list to string
+	pathStr = str(path[0][1]) + " -> " #print source (tuple item)
+	for dest, source in path:
+		pathStr += dest
+		if dest != path[-1][0]: #destination
+			pathStr += " -> "
+	try:
+		print "Distance: {} | {}".format( len(path), pathStr)
+	except UnicodeError:
+		print "Distance: {} | {}".format( len(path), pathStr.encode('ascii', errors='backslashreplace'))
 
 			

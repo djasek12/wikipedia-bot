@@ -3,11 +3,9 @@
 import Queue
 import webutils
 import wikipedia as wiki
-import similarity
 import sys 
 import time
 import random
-import bisect
 
 from traversal import *
 from heapq import *
@@ -27,11 +25,8 @@ def traverse(src, dst):
 
 	dstLinks = webutils.getLinkTitles(dst)
 
-	# new, experimental method to find best option with ordered list
-	future = []
+	future = [] 
 	future += [(0, src)]
-
-	##############################
 
 	visited = set()
 
@@ -50,7 +45,7 @@ def traverse(src, dst):
 		if dst.lower() in [source.lower() for source in currLinks]:
 			path.append((dst, curr))
 			printElapsed(startTime)
-			printPath2(path, dst, src)
+			printPath(path, dst, src)
 			sys.exit(0)
 
 
@@ -77,13 +72,18 @@ def traverse(src, dst):
 
 				# 3b) if common page points to dst, SUCCESS, end program
 				if dst.lower() in [source.lower() for source in links]:
-					print '\t            "{}"'.format(page)
+					try:
+						print '\t            "{}"'.format(page)
+					except:
+						print '\t            "{}"'.format(page.encode('ascii', \
+														errors='backslashreplace'))
+
 					path.append((page, curr))
 					path.append((dst, page))
 					printElapsed(startTime)
-					printPath2(path, dst, src)
+					printPath(path, dst, src)
 					sys.exit(0)
-				# 3c) else, compute Jaccard between all common pages and dst and 
+				# 3c) else, compute Jaccard between all common pages and dst and
 				# choose the lowest Jaccard
 				else:
 					try:
@@ -91,20 +91,11 @@ def traverse(src, dst):
 						print '\tSimilarity: "{}" and "{}" == {}'.format(page, dst, jaccard)
 					except:
 						continue
-
-					############
 			
 					if jaccard > future[0][0] or len(future) < MAX_FUTURE:
 						if len(future) >= MAX_FUTURE:
 							future.remove(min(future))
 						future += [(jaccard, page)]
-					
-					############
-
-					# old method:
-					if jaccard > maxJaccard:
-						maxJaccard = jaccard;
-						nextPage = page
 
 		# 4) If there are no common pages between curr and dst, chose 5 random 
 		# pages linked from curr, and choose one with largest Jaccard score
@@ -125,25 +116,8 @@ def traverse(src, dst):
 						future.remove(min(future))
 					future += [(jaccard, page)]
 
-				##########
-
-				# old method:
-				if jaccard > maxJaccard:
-					maxJaccard = jaccard
-					nextPage = page
-
 
 		# 5) Loop through again, with newly selected page chosen by Jaccard in (3b) or (4)
-		# old method:
-		'''
-		path.append(nextPage)
-		visited.add(curr)
-		curr = nextPage
-		'''
-
-
-		# new method:
-		################
 		visited.add(curr)
 
                 oldCurr = curr
