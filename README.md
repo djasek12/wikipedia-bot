@@ -2,7 +2,8 @@
 How to Run the Project
 ----------------------
 
-The main library this project uses is wikipedia. The source code for this is included in the repository because we actually modified some of the source code to suppress warning in our program. In case other libraries are needed, type 'pip install --user -r requirements.txt'. To run the program, simply type 'python wikipedia-bot.py "SOURCEPAGE" "DESTPAGE"'. The program will output a path between the two articles in text form.
+Clone the repository: 
+    git clone https://gitlab.com/djasek/wikipedia-bot.git
 
 
 External Sources Used
