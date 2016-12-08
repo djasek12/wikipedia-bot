@@ -1,6 +1,9 @@
 Alex Brizius
 ------------
-
+- traversal algorithm
+- command line arguments
+- path printing
+- similarity.py 
 
 Danny Jasek
 -----------
@@ -11,3 +14,5 @@ Danny Jasek
 
 Eric Krebs
 ----------
+- traversal algorithm
+
