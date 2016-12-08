@@ -3,7 +3,7 @@ How to Run the Project
 ----------------------
 
 Clone the repository: 
-    $ git clone https://gitlab.com/djasek/wikipedia-bot.git
+    `$ git clone https://gitlab.com/djasek/wikipedia-bot.git`
 
 
 External Sources Used
