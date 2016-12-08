@@ -1,18 +1,24 @@
+Requirements 
+------------
 
-How to Run the Project
+**python2.7** Tested on versions 2.7.9 and 2.7.11
+
+**pip**
+
+Installation / Usage
 ----------------------
 
 Clone the repository: 
     
-    `$ git clone https://gitlab.com/djasek/wikipedia-bot.git`
+    $ git clone https://gitlab.com/djasek/wikipedia-bot.git
 
 Install requirements (requiries Pip):
 
-    `$ pip install --user -r requirements.txt`
+    $ pip install --user -r requirements.txt
 
 Example Usage: 
     
-    `$ python ./wikipedia-bot.py "Bob Ross" "Red"`
+    $ python ./wikipedia-bot.py "Bob Ross" "Red"
 
 Note to User: Quotation marks are needed if the [src] or [dst] is multi-word 
 
